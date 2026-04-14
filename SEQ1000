@@ -1,0 +1,98 @@
+      IDENTIFICATION DIVISION.
+
+       PROGRAM-ID. SEQ1000.
+
+       ENVIRONMENT DIVISION.
+
+       INPUT-OUTPUT SECTION.
+
+       FILE CONTROL.
+           SELECT RCTTRAN ASSIGN TO RCTTRAN.
+           SELECT OLDMAST ASSIGN TO OLDMAST.
+           SELECT NEWMAST ASSIGN TO NEWMAST
+                          FILE STATUS IS NEWMAST-FILE-STATUS.
+           SELECT ERRTRAN ASSIGN TO ERRTRAN
+                          FILE STATUS IS ERRTRAN-FILE-STATUS.
+               
+       DATA DIVISION.
+           
+       FILE SECTION.
+
+       FD  RCTTRAN.
+       01  TRANSACTION-RECORD     PIC X(23).
+
+       FD  OLDMAST.
+       01  OLD-MASTER-RECORD      PIC X(70).
+               
+       FD  NEWMAST.
+       01  NEW-MASTER-RECORD      PIC X(70).
+
+       FD  ERRTRAN.
+       01  ERROR-TRANSACTION      PIC X(23).
+
+
+       WORKING-STORAGE SECTION.                     
+
+       01  SWITCHES. 
+           05 FIRST-EXECUTION-SWITCH          PIC X    VALUE "Y".
+              88 FIRST-EXECUTION                       VALUE "Y".
+           05 ALL-RECORDS-PROCESSED-SWITCH    PIC X    VALUE "N".
+              88 ALL-RECORDS-PROCESSED                 VALUE "Y". 
+
+       01  FILE-STATUS-FIELDS.
+           05 NEWMAST-FILE-STATUS    PIC XX.
+              88 NEWMAST-SUCCESSFUL         VALUE "00".      
+           05 ERRTRAN-FILE-STATUS    PIC XX.
+              88 ERRTRAN-SUCCESSFUL         VALUE "00".
+
+       01  RECEIPT-TRANSACTION.
+           05 RT-ITEM-NO              PIC X(5).
+           05 RT-VENDOR-NO            PIC X(5).
+           05 RT-RECEIPT-DATE         PIC X(8).
+           05 RT-RECEIPT-QUANTITY     PIC S9(5).
+
+
+
+
+       01  INVENTORY-MASTER-RECORD.
+           05  IM-ITEM-NO              PIC X(5).
+           05  IM-DESCRIPTIVE-DATA.
+              10  IM-ITEM-DESC        PIC X(40).
+              10  IM-UNIT-COST        PIC S9(3)V99.
+              10  IM-UNIT-PRICE       PIC S9(3)V99.
+           05  IM-INVENTORY-DATA.
+              10  IM-REORDER-POINT    PIC S9(5).
+              10  IM-ON-HAND          PIC S9(5).
+              10  IM-ON-ORDER         PIC S9(5).
+
+       OLDMAST       
+10001|CICS for COBOL                          |01250|04500|01000|05432|00000
+10002|Beginning Java                          |01500|04500|00500|00390|05000 + 5000
+10004|DB2, Part 1                             |01095|04750|01000|06259|00000 
+10005|DB2, Part 2                             |01375|04750|00500|04765|00000
+10007|MVS JCL (Second Edition)                |01185|05000|01000|11211|00000
+10009|The CICS Programmer's Reference         |01522|05000|00500|03191|00000
+10011|Visual Basic .NET                       |01435|04500|01500|00543|10000 + 5000 + 5000
+10015|Mainframe COBOL                         |02210|06250|01000|02981|00000
+
+NEWMAST
+10001|CICS for COBOL                          |01250|04500|01000|05432|00000
+10002|Beginning Java                          |01500|04500|00500|0539{|0000{ + 5000
+10004|DB2, Part 1                             |01095|04750|01000|06259|00000
+10005|DB2, Part 2                             |01375|04750|00500|04765|00000
+10007|MVS JCL (Second Edition)                |01185|05000|01000|11211|00000
+10009|The CICS Programmer's Reference         |01522|05000|00500|03191|00000
+10011|Visual Basic .NET                       |01435|04500|01500|1054C|0000{ + 5000 + 5000
+10015|Mainframe COBOL                         |02210|06250|01000|02981|00000
+
+01  RECEIPT-TRANSACTION.
+   05  RT-ITEM-NO              PIC X(5).
+   05  RT-VENDOR-NO            PIC X(5).
+   05  RT-RECEIPT-DATE         PIC X(8).
+   05  RT-RECEIPT-QUANTITY     PIC S9(5).
+   
+10002|00235|05172004|05000
+10006|00194|05172004|00500 Error
+10011|00235|05172004|05000
+10011|00235|05172004|05000
+10012|00194|05172004|10000 Error
