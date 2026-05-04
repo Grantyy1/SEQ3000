@@ -39,12 +39,16 @@ For each run, the program will:
 
 **NEWEMP (New Employee Master File):**
 10001JOHN SMITH                    SALESS1045000004001550
+
 10003NEW HIRE ONE                  SALESS1040000000000000
+
 10008ROBERT DAVIS                  HR   H3065000008003000
 
 **ERRTRAN (Error Transaction File):**
 C10009GHOST EMPLOYEE                IT   T10500000
+
 A10012MARY WILLIAMS                 ACCT A10550000
+
 D10015                                     0000000
 
 ---
